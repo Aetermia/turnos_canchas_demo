@@ -67,7 +67,7 @@ export default function Index({ bookings, filters, courts, statuses }: Props) {
                     <input
                         value={form.q}
                         onChange={(event) => setForm({ ...form, q: event.target.value })}
-                        placeholder="Sofía o BK-123"
+                        placeholder="Nombre, teléfono o BK-123"
                         className="rounded-control border border-line px-2.5 py-1.5 text-sm text-ink"
                     />
                 </label>

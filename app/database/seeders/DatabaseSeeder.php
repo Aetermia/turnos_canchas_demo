@@ -14,11 +14,13 @@ use App\Services\AvailabilityService;
 use App\Services\BookingService;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * Demo data for the template, not a real club. Every value here is invented on
- * purpose so an installation can be shown before the first client exists.
+ * Demo data only: a fully generic establishment so the template can be shown
+ * before the first client exists. No real club, brand, address or person is
+ * represented here, and nothing is presented as a real statistic.
  */
 class DatabaseSeeder extends Seeder
 {
@@ -26,15 +28,15 @@ class DatabaseSeeder extends Seeder
     {
         EstablishmentSetting::query()->delete();
         EstablishmentSetting::create([
-            'name' => 'Complejo Los Álamos',
-            'tagline' => 'Pádel y fútbol 5 en Villa Ballester',
-            'about' => 'Cinco canchas de pádel y dos de fútbol 5, con vestuarios y buffet. Reservá online y llegá a jugar.',
+            'name' => 'Complejo Deportivo',
+            'tagline' => null,
+            'about' => 'Canchas de pádel y fútbol 5. Elegí día y horario, y confirmá online.',
             'accent_color' => '#a9491f',
-            'phone' => '11 4768 2210',
-            'whatsapp' => '5491147682210',
-            'email' => 'turnos@losalamos.demo',
-            'address' => 'Av. San Martín 2450',
-            'city' => 'Villa Ballester',
+            'phone' => null,
+            'whatsapp' => null,
+            'email' => null,
+            'address' => null,
+            'city' => null,
             'maps_url' => null,
             'auto_confirm' => true,
             'pending_blocks_slot' => true,
@@ -45,39 +47,36 @@ class DatabaseSeeder extends Seeder
         EstablishmentSetting::forgetCache();
 
         $admin = User::create([
-            'name' => 'Marina Duarte',
-            'email' => 'admin@demo.test',
+            'name' => 'Administrador',
+            'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'role' => UserRole::Admin,
-            'phone' => '11 4768 2200',
+            'phone' => null,
         ]);
 
         User::create([
-            'name' => 'Nicolás Ferrer',
-            'email' => 'recepcion@demo.test',
+            'name' => 'Recepción',
+            'email' => 'recepcion@example.com',
             'password' => Hash::make('password'),
             'role' => UserRole::Receptionist,
-            'phone' => '11 4768 2201',
+            'phone' => null,
         ]);
 
-        $problems = User::factory()->count(8)->create();
-
-        $demoCustomer = User::create([
-            'name' => 'Sofía Aguirre',
-            'email' => 'cliente@demo.test',
+        $customers = $this->demoCustomers();
+        $customers->push(User::create([
+            'name' => 'Cliente Demo',
+            'email' => 'cliente@example.com',
             'password' => Hash::make('password'),
             'role' => UserRole::Customer,
-            'phone' => '11 5555 1234',
-        ]);
-
-        $problems->push($demoCustomer);
+            'phone' => '11 0000 0000',
+        ]));
 
         $courts = [
-            ['name' => 'Pádel 1', 'sport' => 'Pádel', 'surface' => 'Césped sintético', 'slot_minutes' => 90, 'buffer_minutes' => 15, 'day' => 2_200_000, 'night' => 3_200_000, 'opens' => '08:00:00', 'closes' => '23:00:00'],
-            ['name' => 'Pádel 2', 'sport' => 'Pádel', 'surface' => 'Césped sintético', 'slot_minutes' => 90, 'buffer_minutes' => 15, 'day' => 2_200_000, 'night' => 3_200_000, 'opens' => '08:00:00', 'closes' => '23:00:00'],
-            ['name' => 'Pádel 3', 'sport' => 'Pádel', 'surface' => 'Césped sintético', 'slot_minutes' => 60, 'buffer_minutes' => 0, 'day' => 1_800_000, 'night' => 2_600_000, 'opens' => '09:00:00', 'closes' => '22:00:00'],
-            ['name' => 'Fútbol 5 A', 'sport' => 'Fútbol 5', 'surface' => 'Césped sintético', 'slot_minutes' => 60, 'buffer_minutes' => 0, 'day' => 3_500_000, 'night' => 4_500_000, 'opens' => '09:00:00', 'closes' => '23:00:00'],
-            ['name' => 'Fútbol 5 B', 'sport' => 'Fútbol 5', 'surface' => 'Césped sintético', 'slot_minutes' => 60, 'buffer_minutes' => 0, 'day' => 3_500_000, 'night' => 4_500_000, 'opens' => '09:00:00', 'closes' => '23:00:00'],
+            ['name' => 'Cancha 1', 'sport' => 'Pádel', 'surface' => 'Césped sintético', 'slot_minutes' => 90, 'buffer_minutes' => 15, 'day' => 2_200_000, 'night' => 3_200_000, 'opens' => '08:00:00', 'closes' => '23:00:00'],
+            ['name' => 'Cancha 2', 'sport' => 'Pádel', 'surface' => 'Césped sintético', 'slot_minutes' => 90, 'buffer_minutes' => 15, 'day' => 2_200_000, 'night' => 3_200_000, 'opens' => '08:00:00', 'closes' => '23:00:00'],
+            ['name' => 'Cancha 3', 'sport' => 'Pádel', 'surface' => 'Césped sintético', 'slot_minutes' => 60, 'buffer_minutes' => 0, 'day' => 1_800_000, 'night' => 2_600_000, 'opens' => '09:00:00', 'closes' => '22:00:00'],
+            ['name' => 'Cancha 4', 'sport' => 'Fútbol 5', 'surface' => 'Césped sintético', 'slot_minutes' => 60, 'buffer_minutes' => 0, 'day' => 3_500_000, 'night' => 4_500_000, 'opens' => '09:00:00', 'closes' => '23:00:00'],
+            ['name' => 'Cancha 5', 'sport' => 'Fútbol 5', 'surface' => 'Césped sintético', 'slot_minutes' => 60, 'buffer_minutes' => 0, 'day' => 3_500_000, 'night' => 4_500_000, 'opens' => '09:00:00', 'closes' => '23:00:00'],
         ];
 
         foreach ($courts as $index => $data) {
@@ -119,7 +118,7 @@ class DatabaseSeeder extends Seeder
                 'amount_cents' => $data['night'],
             ]);
 
-            // Saturday morning is the most expensive band in this club.
+            // A weekend morning band, to show that rates can differ by weekday.
             PricingRule::create([
                 'court_id' => $court->id,
                 'weekday' => 6,
@@ -129,10 +128,28 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $this->seedBookings($courts, $problems, $admin);
+        $this->seedBookings($customers, $admin);
     }
 
-    private function seedBookings(array $courts, $customers, User $admin): void
+    /**
+     * @return Collection<int, User>
+     */
+    private function demoCustomers(): Collection
+    {
+        return collect(range(1, 8))->map(function (int $index) {
+            $suffix = str_pad((string) $index, 2, '0', STR_PAD_LEFT);
+
+            return User::create([
+                'name' => 'Cliente '.$suffix,
+                'email' => 'cliente'.$suffix.'@example.com',
+                'password' => Hash::make('password'),
+                'role' => UserRole::Customer,
+                'phone' => '11 0000 00'.$suffix,
+            ]);
+        });
+    }
+
+    private function seedBookings(Collection $customers, User $admin): void
     {
         $availability = AvailabilityService::make();
         $bookings = BookingService::make();
@@ -143,11 +160,9 @@ class DatabaseSeeder extends Seeder
                 $day = $today->addDays($offset);
                 $slots = collect($availability->slots($court->fresh(), $day))->where('available', true)->values();
 
-                // A believable occupancy pattern: busy at night, quiet at midday.
                 $take = $offset === 0 ? min(3, $slots->count()) : min(fake()->numberBetween(1, 4), $slots->count());
-                $chosen = $slots->shuffle()->take($take);
 
-                foreach ($chosen as $slot) {
+                foreach ($slots->shuffle()->take($take) as $slot) {
                     try {
                         $booking = $bookings->create(
                             $court,
@@ -169,8 +184,7 @@ class DatabaseSeeder extends Seeder
 
         // One pending booking so the approval flow is visible in the panel.
         $pendingCourt = Court::query()->first();
-        $pendingSlot = collect($availability->slots($pendingCourt, $today->addDay()))
-            ->firstWhere('available', true);
+        $pendingSlot = collect($availability->slots($pendingCourt, $today->addDay()))->firstWhere('available', true);
 
         if ($pendingSlot) {
             $booking = $bookings->create(

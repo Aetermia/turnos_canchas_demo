@@ -14,7 +14,7 @@ class AuthTest extends TestCase
     public function test_customer_can_register(): void
     {
         $response = $this->post('/registro', [
-            'name' => 'Lucía Fernández',
+            'name' => 'Cliente Prueba',
             'email' => 'lucia@example.com',
             'phone' => '1145678901',
             'password' => 'cancha2026',
@@ -34,7 +34,7 @@ class AuthTest extends TestCase
         User::factory()->create(['email' => 'lucia@example.com']);
 
         $response = $this->from('/registro')->post('/registro', [
-            'name' => 'Lucía Fernández',
+            'name' => 'Cliente Prueba',
             'email' => 'lucia@example.com',
             'password' => 'cancha2026',
             'password_confirmation' => 'cancha2026',
@@ -48,7 +48,7 @@ class AuthTest extends TestCase
     public function test_registration_requires_a_matching_password_confirmation(): void
     {
         $response = $this->from('/registro')->post('/registro', [
-            'name' => 'Lucía Fernández',
+            'name' => 'Cliente Prueba',
             'email' => 'lucia@example.com',
             'password' => 'cancha2026',
             'password_confirmation' => 'otraclave',

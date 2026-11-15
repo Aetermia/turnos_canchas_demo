@@ -72,6 +72,9 @@ export default function Home({ today, contact, policies, courts }: Props) {
     const city = contact.city;
     const headline = city ? `${sportsLabel(courts)} en ${city}` : 'Reservá tu turno online';
     const totalFreeToday = courts.reduce((sum, court) => sum + court.free_today, 0);
+    const hasContactInfo = Boolean(
+        contact.address || contact.phone || contact.whatsapp || contact.email || contact.maps_url,
+    );
 
     return (
         <PublicLayout>
@@ -296,8 +299,13 @@ export default function Home({ today, contact, policies, courts }: Props) {
                                     {contact.address}
                                     {contact.city ? `, ${contact.city}` : ''}
                                 </p>
-                            ) : (
+                            ) : hasContactInfo ? (
                                 <p>Dirección a confirmar.</p>
+                            ) : (
+                                <p>
+                                    Falta cargar la dirección y los contactos del establecimiento desde el panel de
+                                    configuración.
+                                </p>
                             )}
                             {contact.phone ? (
                                 <p>

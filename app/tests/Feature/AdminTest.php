@@ -147,14 +147,14 @@ class AdminTest extends TestCase
     public function test_customer_list_contains_only_customers(): void
     {
         User::factory()->receptionist()->create();
-        $customer = User::factory()->create(['name' => 'Ana Cliente']);
+        $customer = User::factory()->create(['name' => 'Cliente Listado']);
 
         $this->actingAs($this->admin)
             ->get('/panel/clientes')
             ->assertInertia(fn (Assert $page) => $page
                 ->component('Admin/Customers/Index')
                 ->has('customers.data', 1)
-                ->where('customers.data.0.name', 'Ana Cliente'));
+                ->where('customers.data.0.name', 'Cliente Listado'));
 
         $this->assertSame($customer->id, User::query()->where('role', 'customer')->first()?->id);
     }
@@ -223,7 +223,7 @@ class AdminTest extends TestCase
     public function test_calendar_lists_bookings_of_the_day(): void
     {
         $court = Court::factory()->configured()->create();
-        $customer = User::factory()->create(['name' => 'Juan Jugador']);
+        $customer = User::factory()->create(['name' => 'Cliente Calendario']);
         Booking::create([
             'code' => 'BK-CAL001',
             'user_id' => $customer->id,
@@ -241,7 +241,7 @@ class AdminTest extends TestCase
                 ->component('Admin/Calendar')
                 ->has('columns', 1)
                 ->has('items', 1)
-                ->where('items.0.title', 'Juan Jugador')
+                ->where('items.0.title', 'Cliente Calendario')
                 ->where('items.0.kind', 'booking'));
     }
 

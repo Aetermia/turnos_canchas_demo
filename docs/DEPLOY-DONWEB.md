@@ -57,7 +57,7 @@ Este plan no da acceso por consola, así que la decisión entre A y B se toma mi
 Creá `/home/USUARIO/canchas/.env` (nunca dentro de `public_html`):
 
 ```dotenv
-APP_NAME="Complejo Los Álamos"
+APP_NAME="Nombre del Establecimiento"
 APP_ENV=production
 APP_KEY=base64:...          # ver abajo
 APP_DEBUG=false

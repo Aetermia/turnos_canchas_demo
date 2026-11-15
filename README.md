@@ -24,11 +24,11 @@ Si no tenés PHP instalado, en Windows: `winget install PHP.PHP.8.4`. El reposit
 
 | Rol | Correo | Contraseña |
 |---|---|---|
-| Administrador | `admin@demo.test` | `password` |
-| Recepcionista | `recepcion@demo.test` | `password` |
-| Cliente | `cliente@demo.test` | `password` |
+| Administrador | `admin@example.com` | `password` |
+| Recepcionista | `recepcion@example.com` | `password` |
+| Cliente | `cliente@example.com` | `password` |
 
-Los datos del seeder son inventados a propósito: un club ficticio con cinco canchas, tarifas y reservas de la semana. No son datos de un cliente real.
+El seeder carga datos de ejemplo totalmente genéricos: un establecimiento sin nombre de marca, cinco canchas numeradas, tarifas y reservas de la semana. No representa ningún club real.
 
 ## Comandos
 
