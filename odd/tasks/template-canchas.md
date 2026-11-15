@@ -32,10 +32,10 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 | T4 | Creación de reserva transaccional con bloqueo y anti-solapamiento | S5, S7 | `179bd90`, BookingTest |
 | T5 | Cancelación por política + transiciones de estado + auditoría | S8, S9 | `179bd90` |
 | T6 | Autenticación y roles (policies) | S1, S2 | `f186d4d`, AuthTest, PermissionsTest |
-| T7 | Dashboard admin: calendario, reservas, canchas, clientes, configuración | S3, S7, S10 | pendiente |
+| T7 | Dashboard admin: calendario, reservas, canchas, clientes, configuración | S3, S7, S10 | `cbf1894`, `56616c8`, PartialClickThrough |
 | T8 | Sitio público y flujo de reserva del cliente | S4, S11 | `91e5e60`, click-through OK |
 | T9 | Seeders con datos realistas de demo | S3, S10 | `aa02d34` |
-| T10 | Guía de despliegue DonWeb (FTP/phpMyAdmin) | S12 | doc |
+| T10 | Guía de despliegue DonWeb (FTP/phpMyAdmin) | S12 | `DEPLOY-DONWEB.md` |
 
 ## Log
 
@@ -54,3 +54,8 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 - **L11** Click-through verificado en navegador (1440 y 390 px): login de cliente, selección de cancha y día, turno 17:00 con precio, confirmación, y `mis-reservas` mostrando `BK-R9QYLB` confirmada. Consola sin errores. `document.scrollWidth` 375 con viewport 390: sin desborde horizontal.
 - **L12** Bug corregido en verificación: `shortDate()` parseaba `YYYY-MM-DD` como medianoche UTC y mostraba el día anterior en Buenos Aires. Ahora los valores sin hora se formatean en UTC y los timestamps completos en `America/Argentina/Buenos_Aires`.
 - **L13** Decisión de plantilla: la piel vive en tokens CSS (`--color-paper/ink/brand/accent`, `--font-display/body`) y `accent_color` se inyecta desde `establishment_settings`. Cambiar cliente = cambiar tokens + logo, no reescribir componentes. Ver `DESIGN.md`.
+
+- **L14** Panel implementado: resumen del día con ocupación real, calendario día/semana con eje vertical compartido, listado de reservas con filtros, alta manual, detalle con trazabilidad, canchas con horario semanal y tarifas, clientes, bloqueos y configuración. `CourtPolicy::viewAny` pasa a `false`: la gestión de canchas es sólo admin.
+- **L15** Bug de performance encontrado durante la verificación: `Vite::useAggressivePrefetching()` disparaba una ráfaga de requests al montar; con el servidor de PHP (una request por vez) la navegación se colgaba. Se eliminó en `1df61e4`. En hosting compartido el argumento es más fuerte que en local.
+- **L16** Verificación del panel: `evaluate` en navegador confirma 14 reservas hoy, `$ 462.000` facturados, 5 columnas de cancha y 15 bloques en el calendario, 20 filas en el listado de reservas y navegación SPA funcionando. El tool de click del navegador expiró en páginas del panel y el snapshot del calendario también: queda declarado como límite de la verificación, no como PASS. La cobertura funcional la dan 11 tests de panel (`AdminTest`).
+- **L17** Suite al cierre de T10: 60 tests, 192 aserciones, todo verde; `tsc --noEmit` limpio; `vite build` OK.
