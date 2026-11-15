@@ -20,6 +20,8 @@ Deploy: DonWeb Web Hosting Emprendedor (FTP + phpMyAdmin, sin SSH, sin Node en p
 - **S12** Despliegue viable en DonWeb: build local, dependencias de producción con Composer local, subida por FTP, migraciones aplicadas por SQL preparado en phpMyAdmin, sin endpoints que ejecuten comandos.
   Verbatim: "No ejecutar migraciones automáticamente desde endpoints públicos."
 
+- **S13** Los datos de ejemplo son genéricos: sin nombre de club, marca, dirección ni personas inventadas que puedan confundirse con un cliente real. Verbatim: "Hace lo mas generico ... tiene que ser full generico, sin nombres conocidos ni nada". Criterio: el seeder crea "Complejo Deportivo", canchas numeradas y clientes "Cliente 01..08"; los campos de contacto arrancan vacíos y el sitio lo declara en vez de imprimir una dirección ficticia.
+
 Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confirmación automática configurable. Ver `DECISIONES_ABIERTAS.txt`.
 
 ## Tasks
@@ -59,3 +61,4 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 - **L15** Bug de performance encontrado durante la verificación: `Vite::useAggressivePrefetching()` disparaba una ráfaga de requests al montar; con el servidor de PHP (una request por vez) la navegación se colgaba. Se eliminó en `1df61e4`. En hosting compartido el argumento es más fuerte que en local.
 - **L16** Verificación del panel: `evaluate` en navegador confirma 14 reservas hoy, `$ 462.000` facturados, 5 columnas de cancha y 15 bloques en el calendario, 20 filas en el listado de reservas y navegación SPA funcionando. El tool de click del navegador expiró en páginas del panel y el snapshot del calendario también: queda declarado como límite de la verificación, no como PASS. La cobertura funcional la dan 11 tests de panel (`AdminTest`).
 - **L17** Suite al cierre de T10: 60 tests, 192 aserciones, todo verde; `tsc --noEmit` limpio; `vite build` OK.
+- **L18** Corregido por pedido del usuario: el seeder traía un club inventado con nombre propio, ciudad, dirección, teléfonos y personas. Ahora todo es genérico y los contactos quedan en `null`; la sección de ubicación muestra "Falta cargar la dirección..." cuando no hay datos. También se sacaron los nombres propios de los fixtures de tests y de los placeholders de UI.
