@@ -42,10 +42,10 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 | T8 | Sitio público y flujo de reserva del cliente | S4, S11 | `91e5e60`, click-through OK |
 | T9 | Seeders con datos realistas de demo | S3, S10 | `aa02d34` |
 | T10 | Guía de despliegue DonWeb (FTP/phpMyAdmin) | S12 | `DEPLOY-DONWEB.md` |
-| T11 | Dirección visual A: `DESIGN.md`, tokens, tipografía | S15 | |
-| T12 | Datos del tablero en `PublicController` + test | S14 | |
-| T13 | Portada como tablero (desktop grilla, móvil chips) + precarga de turno | S14 | |
-| T14 | Contraste del acento, limpieza de em dash, verificación | S16 | |
+| T11 | Dirección visual A: `DESIGN.md`, tokens, tipografía | S15, S16 | `c2fff06` |
+| T12 | Datos del tablero en `PublicController` + test | S14 | `780147e` |
+| T13 | Portada como tablero (desktop grilla, móvil lista) + precarga de turno | S14 | `780147e` |
+| T14 | Contraste del acento, limpieza de em dash, verificación | S16 | `c2fff06` |
 
 
 ## Log
@@ -72,3 +72,6 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 - **L17** Suite al cierre de T10: 60 tests, 192 aserciones, todo verde; `tsc --noEmit` limpio; `vite build` OK.
 - **L18** Corregido por pedido del usuario: el seeder traía un club inventado con nombre propio, ciudad, dirección, teléfonos y personas. Ahora todo es genérico y los contactos quedan en `null`; la sección de ubicación muestra "Falta cargar la dirección..." cuando no hay datos. También se sacaron los nombres propios de los fixtures de tests y de los placeholders de UI.
 - **L19** Dirección A elegida por el usuario tras objetar que la estética era genérica de IA. Diagnóstico aceptado: la paleta crema/verde/terracota y la dupla Bricolage + Instrument son la firma visual que la IA repite; el hero (kicker + H1 + 2 CTAs + dos métricas) era el esqueleto R-05 completo. Se reemplaza por un tablero: la información manda y el diseño se subordina.
+- **L20** Dirección A implementada y verificada con capturas reales. Cuatro defectos que la captura expuso y el código no: (1) el tablero de 720 px de ancho mínimo desbordaba el documento entero, no sólo su contenedor (medido: `scrollWidth` 717 en un viewport de 390); (2) una grilla de 30 columnas en un teléfono no es usable ni con scroll, así que en móvil la misma data va como lista de horarios por cancha; (3) `capitalize` producía "15 De Noviembre"; (4) el acento seguía siendo el terracota viejo guardado en la base, porque cambié el token y no el dato.
+- **L21** Trampa de herramienta, para no repetirla: `msedge --headless --window-size=390` clampa la ventana en ~717 px, así que la captura sale recortada y parece que hay overflow. La medición confiable se hace por CDP con `Emulation.setDeviceMetricsOverride` (viewport 390 exacto) y `Page.captureScreenshot`. Con eso: `/` y `/reservar` dan `scrollWidth` 390 = viewport, sin desborde.
+- **L22** Click-through del tablero: el primer turno libre de la portada (`/reservar?court=1&date=2026-11-15&start=21:30`) abre la reserva con cancha, día y turno ya seleccionados (`aria-pressed="true"` en los tres), resumen con "$ 32.000" y el formulario listo.
