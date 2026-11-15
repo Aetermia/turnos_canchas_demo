@@ -1,0 +1,16 @@
+DOS DECISIONES QUE QUEDAN EXPLICITAMENTE ABIERTAS
+=================================================
+
+Hay dos cuestiones que no conviene inventar antes de conocer al primer cliente:
+
+1. Señas y pagos
+   El template puede mostrar precios y registrar el estado de una reserva, pero
+   no necesita implementar una pasarela de pago en esta primera versión.
+
+2. Confirmación de reservas
+   Debe poder configurarse si una reserva se confirma automáticamente o si
+   requiere intervención del administrador.
+
+Estado: ABIERTAS. No se resuelven por suposición. La configuración del
+establecimiento debe dejar ambas puertas abiertas, sin implementar la pasarela
+de pago en esta versión.
