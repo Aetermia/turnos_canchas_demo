@@ -32,9 +32,9 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 | T4 | Creación de reserva transaccional con bloqueo y anti-solapamiento | S5, S7 | `179bd90`, BookingTest |
 | T5 | Cancelación por política + transiciones de estado + auditoría | S8, S9 | `179bd90` |
 | T6 | Autenticación y roles (policies) | S1, S2 | `f186d4d`, AuthTest, PermissionsTest |
-| T7 | Dashboard admin: calendario, reservas, canchas, clientes, configuración | S3, S7, S10 | click-through |
-| T8 | Sitio público y flujo de reserva del cliente | S4, S11 | click-through |
-| T9 | Seeders con datos realistas de demo | S3, S10 | migrate:fresh --seed |
+| T7 | Dashboard admin: calendario, reservas, canchas, clientes, configuración | S3, S7, S10 | pendiente |
+| T8 | Sitio público y flujo de reserva del cliente | S4, S11 | `91e5e60`, click-through OK |
+| T9 | Seeders con datos realistas de demo | S3, S10 | `aa02d34` |
 | T10 | Guía de despliegue DonWeb (FTP/phpMyAdmin) | S12 | doc |
 
 ## Log
@@ -50,3 +50,7 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 - **L8** `intl` no está disponible localmente, así que `Money::format()` arma el formato ARS a mano. No se usa `NumberFormat`.
 - **L9** SQLite local (no hay MySQL en la máquina). Las reglas de negocio se testean acá; la garantía de concurrencia (`FOR UPDATE`, InnoDB) solo se puede verificar en MySQL y así queda documentado, sin venderlo como testeado.
 - **L10** Suite al cierre de T6: 49 tests, 116 aserciones, todo verde.
+
+- **L11** Click-through verificado en navegador (1440 y 390 px): login de cliente, selección de cancha y día, turno 17:00 con precio, confirmación, y `mis-reservas` mostrando `BK-R9QYLB` confirmada. Consola sin errores. `document.scrollWidth` 375 con viewport 390: sin desborde horizontal.
+- **L12** Bug corregido en verificación: `shortDate()` parseaba `YYYY-MM-DD` como medianoche UTC y mostraba el día anterior en Buenos Aires. Ahora los valores sin hora se formatean en UTC y los timestamps completos en `America/Argentina/Buenos_Aires`.
+- **L13** Decisión de plantilla: la piel vive en tokens CSS (`--color-paper/ink/brand/accent`, `--font-display/body`) y `accent_color` se inyecta desde `establishment_settings`. Cambiar cliente = cambiar tokens + logo, no reescribir componentes. Ver `DESIGN.md`.
