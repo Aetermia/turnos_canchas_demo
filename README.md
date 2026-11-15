@@ -43,10 +43,21 @@ Si no tenés PHP instalado, en Windows: `winget install PHP.PHP.8.4`. El reposit
 
 El seeder carga datos de ejemplo totalmente genéricos: un establecimiento sin nombre de marca, cinco canchas numeradas, tarifas y reservas de la semana. No representa ningún club real.
 
+### Usuarios locales (sólo con `APP_ENV=local`)
+
+Para mirar el panel y la cuenta de cliente sin escribir correos:
+
+| Rol | Usuario | Contraseña |
+|---|---|---|
+| Administrador | `admin` | `admin` |
+| Cliente | `user` | `user` |
+
+Se escriben tal cual en el campo Correo. Sólo existen cuando `APP_ENV=local` (`php artisan migrate --seed` los crea): en cualquier otro entorno el seeder no los genera y el formulario vuelve a exigir un correo válido. Ver `config/app.php` → `local_accounts`.
+
 ## Comandos
 
 ```bash
-php artisan test          # 60 tests: motor, permisos, panel
+php artisan test          # 70 tests: motor, permisos, panel, cuentas locales
 npx tsc --noEmit          # tipos del frontend
 npx vite build            # assets de producción
 vendor/bin/pint           # formato PHP

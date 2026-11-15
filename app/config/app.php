@@ -30,6 +30,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Local Demo Accounts
+    |--------------------------------------------------------------------------
+    |
+    | Lets a developer sign in as "admin" or "user" while working on the
+    | machine. Derived from the environment so there is no second switch to
+    | forget: on any server this is false and the shorthand does not exist.
+    |
+    */
+
+    'local_accounts' => env('APP_ENV', 'production') === 'local',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |

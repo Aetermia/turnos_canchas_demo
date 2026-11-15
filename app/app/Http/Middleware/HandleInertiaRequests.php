@@ -33,6 +33,8 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error'),
             ],
             'brand' => fn () => $this->brand(),
+            // Only true on a developer machine; see config/app.php.
+            'local_accounts' => (bool) config('app.local_accounts'),
         ];
     }
 

@@ -64,6 +64,8 @@ export type SharedProps = {
     auth: { user: AuthUser | null };
     flash: Flash;
     brand: Brand;
+    /** Developer machine only: the login field also takes a bare username. */
+    local_accounts: boolean;
 };
 
 export type BoardCell = {

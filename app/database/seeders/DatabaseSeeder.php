@@ -129,6 +129,8 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->seedBookings($customers, $admin);
+
+        $this->call(LocalAccountSeeder::class);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Support\LocalAccount;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,23 @@ class LoginRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    /**
+     * In local, the seeded dev accounts are reachable by typing "admin" or
+     * "user". Any other environment keeps rejecting a value without "@".
+     */
+    protected function prepareForValidation(): void
+    {
+        if (! config('app.local_accounts')) {
+            return;
+        }
+
+        $identifier = trim((string) $this->input('email'));
+
+        if ($identifier !== '' && ! str_contains($identifier, '@')) {
+            $this->merge(['email' => LocalAccount::email($identifier)]);
+        }
     }
 
     public function rules(): array

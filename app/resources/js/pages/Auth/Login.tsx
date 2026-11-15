@@ -1,11 +1,15 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox, Field, Input } from '@/components/ui/field';
 import { AuthLayout } from '@/layouts/auth-layout';
+import type { SharedProps } from '@/types';
 
 export default function Login() {
     const form = useForm({ email: '', password: '', remember: false });
+    // On a developer machine the field also accepts "admin" or "user", which a
+    // browser email input would refuse to submit before reaching the server.
+    const { local_accounts: localAccounts } = usePage<SharedProps>().props;
 
     return (
         <AuthLayout title="Ingresá a tu cuenta" intro="Con tu cuenta reservás, cancelás y ves tus turnos.">
@@ -18,11 +22,17 @@ export default function Login() {
                     form.post('/ingresar', { onFinish: () => form.reset('password') });
                 }}
             >
-                <Field label="Correo" htmlFor="email" error={form.errors.email}>
+                <Field
+                    label="Correo"
+                    htmlFor="email"
+                    error={form.errors.email}
+                    hint={localAccounts ? 'En local también sirve un usuario: admin/admin o user/user.' : undefined}
+                >
                     <Input
                         id="email"
-                        type="email"
-                        autoComplete="email"
+                        type={localAccounts ? 'text' : 'email'}
+                        inputMode={localAccounts ? 'text' : 'email'}
+                        autoComplete="username"
                         required
                         value={form.data.email}
                         aria-invalid={Boolean(form.errors.email)}
