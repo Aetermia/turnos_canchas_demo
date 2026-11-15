@@ -9,7 +9,8 @@ class CourtPolicy
 {
     public function viewAny(?User $user): bool
     {
-        return true;
+        // Court management is admin only; the public site lists courts without the policy.
+        return false;
     }
 
     public function view(?User $user, Court $court): bool
