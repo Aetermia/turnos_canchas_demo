@@ -17,9 +17,8 @@
         "noEmit": true,
         "allowJs": false,
         "types": ["vite/client"],
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["resources/js/*"]
+            "@/*": ["./resources/js/*"]
         }
     },
     "include": ["resources/js/**/*.ts", "resources/js/**/*.tsx"]

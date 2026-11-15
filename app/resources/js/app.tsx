@@ -8,11 +8,15 @@ const appName = import.meta.env.VITE_APP_NAME || 'Canchas';
 createInertiaApp({
     title: (title) => (title ? `${title} · ${appName}` : appName),
     resolve: (name) => {
-        const pages = import.meta.glob('./pages/**/*.tsx');
+        const pages = import.meta.glob<any>('./pages/**/*.tsx');
 
         return pages[`./pages/${name}.tsx`]();
     },
     setup({ el, App, props }) {
+        if (!el) {
+            return;
+        }
+
         createRoot(el).render(<App {...props} />);
     },
     progress: {
