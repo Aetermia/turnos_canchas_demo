@@ -37,6 +37,8 @@ class BookingController extends Controller
             'selected_court' => $court?->id,
             'date' => $date,
             'slots' => $court ? $availability->slots($court, CarbonImmutable::parse($date)) : [],
+            // The board sends the slot the visitor clicked, so they land on it.
+            'preselected_start' => $this->preselectedStart($request, $court, $date),
             'days' => $this->nextDays($settings->max_advance_days),
             'max_advance_days' => $settings->max_advance_days,
             'min_advance_minutes' => $settings->min_advance_minutes,
@@ -112,6 +114,20 @@ class BookingController extends Controller
         }
 
         return back()->with('success', 'La reserva quedó cancelada y el horario se liberó.');
+    }
+
+    /**
+     * "HH:mm" as clicked on the public board, resolved to this court and day.
+     */
+    private function preselectedStart(Request $request, ?Court $court, string $date): ?string
+    {
+        $start = $request->query('start');
+
+        if ($court === null || ! is_string($start) || preg_match('/^\d{2}:\d{2}$/', $start) !== 1) {
+            return null;
+        }
+
+        return CarbonImmutable::parse($date.' '.$start.':00')->toIso8601String();
     }
 
     private function requestedDate(Request $request): string

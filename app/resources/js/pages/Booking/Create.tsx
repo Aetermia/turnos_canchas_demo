@@ -12,6 +12,7 @@ type Props = {
     selected_court: number | null;
     date: string;
     slots: Slot[];
+    preselected_start: string | null;
     days: Array<{ date: string; label: string }>;
     max_advance_days: number;
     min_advance_minutes: number;
@@ -24,6 +25,7 @@ export default function Create({
     selected_court,
     date,
     slots,
+    preselected_start,
     days,
     min_advance_minutes,
     cancellation_hours,
@@ -31,10 +33,12 @@ export default function Create({
 }: Props) {
     const { auth } = usePage<SharedProps>().props;
     const court = courts.find((c) => c.id === selected_court) ?? null;
-    const [selected, setSelected] = useState<Slot | null>(null);
+    // Arriving from the board, the slot the visitor clicked is already chosen.
+    const preselected = slots.find((slot) => slot.start === preselected_start) ?? null;
+    const [selected, setSelected] = useState<Slot | null>(preselected);
     const form = useForm({
         court_id: selected_court ?? 0,
-        starts_at: '',
+        starts_at: preselected?.start ?? '',
         duration_minutes: court?.slot_minutes ?? 60,
         notes: '',
     });
@@ -63,7 +67,7 @@ export default function Create({
             <Head title="Reservar un turno" />
 
             <div className="mx-auto w-full max-w-5xl px-4 py-10">
-                <div className="court-rule w-16" aria-hidden="true" />
+                <div className="board-rule w-16" aria-hidden="true" />
                 <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Elegí cancha, día y horario</h1>
                 <p className="mt-2 max-w-xl text-sm text-ink-soft">
                     Los turnos se reservan hasta con {min_advance_minutes} minutos de anticipación y se pueden cancelar
@@ -83,7 +87,7 @@ export default function Create({
                                     className={`shrink-0 rounded-control border px-3 py-2 text-sm ${
                                         item.id === selected_court
                                             ? 'border-brand bg-brand text-paper'
-                                            : 'border-line bg-white text-ink hover:border-ink'
+                                            : 'border-line bg-paper text-ink hover:border-ink'
                                     }`}
                                 >
                                     {item.name}
@@ -108,7 +112,7 @@ export default function Create({
                                 className={`shrink-0 rounded-control border px-3 py-2 text-[13px] capitalize ${
                                     day.date === date
                                         ? 'border-ink bg-ink text-paper'
-                                        : 'border-line bg-white text-ink hover:border-ink'
+                                        : 'border-line bg-paper text-ink hover:border-ink'
                                 }`}
                             >
                                 {shortDate(day.date)}
@@ -117,7 +121,7 @@ export default function Create({
                     </div>
                 </div>
 
-                <div className="mt-8 rounded-card border border-line bg-white p-5">
+                <div className="mt-8 rounded-card border border-line bg-paper p-5">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                         <h2 className="font-display text-lg font-semibold text-ink capitalize">{shortDate(date)}</h2>
                         <p className="tnum text-sm text-ink-soft">
@@ -154,7 +158,7 @@ export default function Create({
                                                     ? 'border-line bg-paper-sunk text-ink-soft/60'
                                                     : isSelected
                                                       ? 'border-accent bg-accent-soft'
-                                                      : 'border-line bg-white text-ink hover:border-ink'
+                                                      : 'border-line bg-paper text-ink hover:border-ink'
                                             }`}
                                         >
                                             <span className="block text-sm font-medium">{time(slot.start)}</span>
@@ -170,7 +174,7 @@ export default function Create({
                 </div>
 
                 {selected && (
-                    <div className="mt-6 rounded-card border border-accent/40 bg-white p-5">
+                    <div className="mt-6 rounded-card border border-accent/40 bg-paper p-5">
                         <h2 className="font-display text-lg font-semibold text-ink">Confirmá tu reserva</h2>
                         <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
                             <div>
@@ -220,7 +224,7 @@ export default function Create({
                                 <p className="text-sm text-ink-soft">Necesitás una cuenta para confirmar el turno.</p>
                                 <Link
                                     href="/ingresar"
-                                    className="rounded-control bg-accent px-4 py-2.5 text-sm font-medium text-paper hover:bg-[#8f3c19]"
+                                    className="rounded-control bg-accent px-4 py-2.5 text-sm font-medium on-accent hover:brightness-95"
                                 >
                                     Ingresar y reservar
                                 </Link>

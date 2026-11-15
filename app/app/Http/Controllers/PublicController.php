@@ -42,7 +42,116 @@ class PublicController extends Controller
                 'auto_confirm' => $settings->auto_confirm,
             ],
             'courts' => $this->courts($courts, $availability, $today),
+            'board' => $this->board($courts, $availability, $today),
         ]);
+    }
+
+    /**
+     * Today's timetable: one row per court, one column per half hour.
+     *
+     * The axis is shared by every court so a 60 minute court and a 90 minute
+     * court still line up under the same clock. Cells keep their real state,
+     * including the hours the club already passed.
+     *
+     * @return array<string, mixed>
+     */
+    private function board(Collection $courts, AvailabilityService $availability, CarbonImmutable $today): array
+    {
+        $unit = 30;
+        $weekday = $today->dayOfWeekIso;
+
+        $rows = [];
+        $opens = [];
+        $closes = [];
+
+        foreach ($courts as $court) {
+            $schedule = $court->schedules->firstWhere('weekday', $weekday);
+            $isOpen = $schedule !== null && $schedule->is_open;
+
+            if ($isOpen) {
+                $opens[] = $this->minutes($schedule->opens_at);
+                $closes[] = $this->minutes($schedule->closes_at);
+            }
+
+            $rows[$court->id] = [
+                'id' => $court->id,
+                'name' => $court->name,
+                'sport' => $court->sport,
+                'slot_minutes' => $court->slot_minutes,
+                'is_open' => $isOpen,
+                'opens' => $isOpen ? $this->clock($this->minutes($schedule->opens_at)) : null,
+                'closes' => $isOpen ? $this->clock($this->minutes($schedule->closes_at)) : null,
+                'cells' => [],
+            ];
+        }
+
+        $from = $opens === [] ? 8 * 60 : min($opens);
+        $to = $closes === [] ? 23 * 60 : max($closes);
+        $columns = max(1, intdiv($to - $from, $unit));
+
+        foreach ($courts as $court) {
+            $row = $rows[$court->id];
+
+            if (! $row['is_open']) {
+                continue;
+            }
+
+            $slots = collect($availability->slots($court, $today))->keyBy(
+                fn (array $slot) => CarbonImmutable::parse($slot['start'])->format('H:i')
+            );
+
+            $step = max($unit, $court->slot_minutes);
+            $span = intdiv($step, $unit);
+
+            for ($start = $this->minutes($court->schedules->firstWhere('weekday', $weekday)->opens_at); $start + $step <= $to; $start += $step) {
+                $clock = $this->clock($start);
+                $slot = $slots->get($clock);
+
+                $state = match (true) {
+                    $slot === null => 'past',
+                    $slot['available'] => 'free',
+                    $slot['reason'] === 'Ocupado' => 'taken',
+                    default => 'closed',
+                };
+
+                $rows[$court->id]['cells'][] = [
+                    'start' => $clock,
+                    'col' => max(0, intdiv($start - $from, $unit)),
+                    'span' => $span,
+                    'state' => $state,
+                    'price_cents' => $state === 'free' ? $slot['price_cents'] : null,
+                    'reason' => $slot['reason'] ?? null,
+                ];
+            }
+        }
+
+        $hours = [];
+
+        for ($mark = $from; $mark < $to; $mark += 60) {
+            $hours[] = $this->clock($mark);
+        }
+
+        return [
+            'date' => $today->toDateString(),
+            'unit_minutes' => $unit,
+            'from' => $this->clock($from),
+            'to' => $this->clock($to),
+            'columns' => $columns,
+            'hours' => $hours,
+            'rows' => array_values($rows),
+        ];
+    }
+
+    private function minutes(?string $time): int
+    {
+        [$hour, $minute] = array_map('intval', explode(':', substr((string) $time, 0, 5)));
+
+        return $hour * 60 + $minute;
+    }
+
+    private function clock(int $minutes): string
+    {
+        return sprintf('%02d:%02d', intdiv($minutes, 60), $minutes % 60);
     }
 
     private function courts(Collection $courts, AvailabilityService $availability, CarbonImmutable $today): array
