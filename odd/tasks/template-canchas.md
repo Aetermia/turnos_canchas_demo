@@ -22,6 +22,10 @@ Deploy: DonWeb Web Hosting Emprendedor (FTP + phpMyAdmin, sin SSH, sin Node en p
 
 - **S13** Los datos de ejemplo son genéricos: sin nombre de club, marca, dirección ni personas inventadas que puedan confundirse con un cliente real. Verbatim: "Hace lo mas generico ... tiene que ser full generico, sin nombres conocidos ni nada". Criterio: el seeder crea "Complejo Deportivo", canchas numeradas y clientes "Cliente 01..08"; los campos de contacto arrancan vacíos y el sitio lo declara en vez de imprimir una dirección ficticia.
 
+- **S14** La portada es el tablero de turnos, no una landing: grilla de canchas por filas y horas por columnas con el estado real de cada turno (libre con precio, tomado, fuera de horario), y el turno libre entra a la reserva con cancha, día y hora precargados. Sin hero, sin tarjetas de métrica. Verbatim: "vamos con la A, de ultima volvemos".
+- **S15** La identidad visual deja de ser la combinación editorial cálida (papel crema, verde bosque, terracota) y pasa a señalética deportiva: un solo tipo Archivo con cifras tabulares, neutro frío, azul cancha como color de estructura y amarillo señal como único acento. Toda decisión con su razón escrita en `DESIGN.md`. Verbatim: "la estetica visual es muy ai generica".
+- **S16** El texto sobre el acento no puede quedar fijo: si el acento configurado es claro, el texto encima pasa a tinta. Ningún par de texto baja de 4.5:1 con cualquier acento válido.
+
 Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confirmación automática configurable. Ver `DECISIONES_ABIERTAS.txt`.
 
 ## Tasks
@@ -38,6 +42,11 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 | T8 | Sitio público y flujo de reserva del cliente | S4, S11 | `91e5e60`, click-through OK |
 | T9 | Seeders con datos realistas de demo | S3, S10 | `aa02d34` |
 | T10 | Guía de despliegue DonWeb (FTP/phpMyAdmin) | S12 | `DEPLOY-DONWEB.md` |
+| T11 | Dirección visual A: `DESIGN.md`, tokens, tipografía | S15 | |
+| T12 | Datos del tablero en `PublicController` + test | S14 | |
+| T13 | Portada como tablero (desktop grilla, móvil chips) + precarga de turno | S14 | |
+| T14 | Contraste del acento, limpieza de em dash, verificación | S16 | |
+
 
 ## Log
 
@@ -62,3 +71,4 @@ Decisiones abiertas (no se inventan): señas/pagos fuera de esta versión; confi
 - **L16** Verificación del panel: `evaluate` en navegador confirma 14 reservas hoy, `$ 462.000` facturados, 5 columnas de cancha y 15 bloques en el calendario, 20 filas en el listado de reservas y navegación SPA funcionando. El tool de click del navegador expiró en páginas del panel y el snapshot del calendario también: queda declarado como límite de la verificación, no como PASS. La cobertura funcional la dan 11 tests de panel (`AdminTest`).
 - **L17** Suite al cierre de T10: 60 tests, 192 aserciones, todo verde; `tsc --noEmit` limpio; `vite build` OK.
 - **L18** Corregido por pedido del usuario: el seeder traía un club inventado con nombre propio, ciudad, dirección, teléfonos y personas. Ahora todo es genérico y los contactos quedan en `null`; la sección de ubicación muestra "Falta cargar la dirección..." cuando no hay datos. También se sacaron los nombres propios de los fixtures de tests y de los placeholders de UI.
+- **L19** Dirección A elegida por el usuario tras objetar que la estética era genérica de IA. Diagnóstico aceptado: la paleta crema/verde/terracota y la dupla Bricolage + Instrument son la firma visual que la IA repite; el hero (kicker + H1 + 2 CTAs + dos métricas) era el esqueleto R-05 completo. Se reemplaza por un tablero: la información manda y el diseño se subordina.

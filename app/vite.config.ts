@@ -11,8 +11,9 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
             refresh: true,
             fonts: [
-                // Display face for headings, one variable weight file for body.
-                bunny('Bricolage Grotesque', { weights: [500, 600, 700] }),
+                // One industrial grotesk for the whole interface: tabular
+                // figures that line up in the board columns.
+                bunny('Archivo', { weights: [400, 600, 700] }),
             ],
         }),
         react(),

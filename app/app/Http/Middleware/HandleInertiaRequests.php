@@ -43,6 +43,7 @@ class HandleInertiaRequests extends Middleware
         return [
             'name' => $settings->name,
             'accent' => $settings->accent_color,
+            'accent_ink' => $settings->accentInk(),
             'logo' => $settings->logo_path,
         ];
     }

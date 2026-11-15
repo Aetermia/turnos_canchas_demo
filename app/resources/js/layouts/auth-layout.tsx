@@ -18,7 +18,7 @@ export function AuthLayout({ title, intro, children }: { title: string; intro: s
             </Link>
 
             <div className="w-full max-w-sm">
-                <div className="court-rule mb-6" aria-hidden="true" />
+                <div className="board-rule mb-6" aria-hidden="true" />
                 <h1 className="font-display text-2xl font-semibold text-ink">{title}</h1>
                 <p className="mt-1 mb-6 text-sm text-ink-soft">{intro}</p>
 

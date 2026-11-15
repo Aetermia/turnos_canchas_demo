@@ -48,7 +48,7 @@ export function AdminLayout({ title, actions, children }: { title: string; actio
                 Saltar al contenido
             </a>
 
-            <header className="border-b border-line bg-white">
+            <header className="border-b border-line bg-paper">
                 <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-3 px-4">
                     <div className="flex items-center gap-3">
                         <Wordmark name={brand.name} logo={brand.logo} />

@@ -4,22 +4,26 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-    --font-body: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    /* One family, chosen for its tabular figures: this is a timetable. */
+    --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Archivo', ui-sans-serif, system-ui, sans-serif;
 
-    --color-paper: #f7f4ee;
-    --color-paper-sunk: #efe9dd;
-    --color-ink: #17150f;
-    --color-ink-soft: #52503f;
-    --color-line: #ded5c4;
+    --color-paper: #eeeee9;
+    --color-paper-sunk: #e2e2db;
+    --color-ink: #14161a;
+    --color-ink-soft: #4d5057;
+    --color-line: #b8b9b2;
 
-    --color-brand: #12503c;
-    --color-brand-soft: #e2ebe4;
-    --color-accent: #a9491f;
-    --color-accent-soft: #f4e3d9;
+    --color-brand: #0f3350;
+    --color-brand-soft: #dde3e8;
+    --color-accent: #f0b429;
+    --color-accent-soft: #f7e6bd;
+    /* Text painted on the accent. Recomputed per installation in PHP. */
+    --color-accent-ink: #14161a;
 
-    --radius-card: 0.75rem;
-    --radius-control: 0.375rem;
+    /* Signage, not software: square corners everywhere. */
+    --radius-card: 2px;
+    --radius-control: 2px;
 }
 
 @layer base {
@@ -40,8 +44,13 @@
     h3,
     h4 {
         font-family: var(--font-display);
-        letter-spacing: -0.015em;
+        letter-spacing: -0.01em;
         text-wrap: balance;
+    }
+
+    /* Numbers are read in columns here, so they always line up. */
+    body {
+        font-variant-numeric: tabular-nums;
     }
 
     /* Every enabled control announces itself as clickable; disabled says otherwise. */
@@ -68,33 +77,62 @@
 
     ::selection {
         background-color: var(--color-accent-soft);
+        color: var(--color-ink);
     }
 }
 
 @layer components {
-    /* Identity motif: the court line, with its two square end marks. */
-    .court-rule {
+    /* Identity motif, part one: the heavy rule that opens a block, like the
+       header of a printed fixture. Ink, with the signal colour as one tick. */
+    .board-rule {
         position: relative;
-        height: 1px;
-        background-color: var(--color-accent);
+        height: 3px;
+        background-color: var(--color-ink);
     }
 
-    .court-rule::before,
-    .court-rule::after {
+    .board-rule::before {
         content: '';
         position: absolute;
-        top: -3px;
-        width: 7px;
-        height: 7px;
+        inset-block: 0;
+        left: 0;
+        width: 28px;
         background-color: var(--color-accent);
     }
 
-    .court-rule::before {
-        left: 0;
+    /* Identity motif, part two: the slot cell. 1px ink frame, no shadow. */
+    .board-cell {
+        border: 1px solid var(--color-line);
+        background-color: var(--color-paper);
+        transition: background-color 120ms linear;
     }
 
-    .court-rule::after {
-        right: 0;
+    .board-cell-free:hover,
+    .board-cell-free:focus-visible {
+        background-color: var(--color-accent);
+        color: var(--color-ink);
+    }
+
+    /* Taken slots are hatched, the way a paper board crosses a booking out. */
+    .board-cell-taken {
+        background-image: repeating-linear-gradient(
+            135deg,
+            var(--color-line) 0 1px,
+            transparent 1px 6px
+        );
+    }
+
+    /* Anything painted on the accent reads in accent-ink, never in paper. */
+    .on-accent {
+        color: var(--color-accent-ink);
+    }
+
+    /* Section labels: a board heading, not an eyebrow badge. */
+    .board-label {
+        font-size: 0.6875rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-ink-soft);
     }
 
     .tnum {

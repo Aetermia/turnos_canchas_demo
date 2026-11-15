@@ -11,6 +11,8 @@ export type AuthUser = {
 export type Brand = {
     name: string;
     accent: string;
+    /** Text colour that keeps AA contrast on top of the configured accent. */
+    accent_ink: string;
     logo: string | null;
 };
 
@@ -54,10 +56,42 @@ export type CourtCard = {
     closes_at: string | null;
     next_free: string | null;
     free_today: number;
+    schedule: string;
+    rates: Array<{ weekday: number | null; starts_at: string; ends_at: string; amount_cents: number }>;
 };
 
 export type SharedProps = {
     auth: { user: AuthUser | null };
     flash: Flash;
     brand: Brand;
+};
+
+export type BoardCell = {
+    start: string;
+    col: number;
+    span: number;
+    state: 'free' | 'taken' | 'past' | 'closed';
+    price_cents: number | null;
+    reason: string | null;
+};
+
+export type BoardRow = {
+    id: number;
+    name: string;
+    sport: string;
+    slot_minutes: number;
+    is_open: boolean;
+    opens: string | null;
+    closes: string | null;
+    cells: BoardCell[];
+};
+
+export type Board = {
+    date: string;
+    unit_minutes: number;
+    from: string;
+    to: string;
+    columns: number;
+    hours: string[];
+    rows: BoardRow[];
 };

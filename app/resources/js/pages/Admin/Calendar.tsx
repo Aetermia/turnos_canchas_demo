@@ -84,7 +84,7 @@ export default function Calendar({ view, date, courts, selected_court, columns, 
             actions={
                 <Link
                     href="/panel/reservas/nueva"
-                    className="rounded-control bg-accent px-3 py-2 text-sm font-medium text-paper hover:bg-[#8f3c19]"
+                    className="rounded-control bg-accent px-3 py-2 text-sm font-medium on-accent hover:brightness-95"
                 >
                     Nueva reserva
                 </Link>
@@ -93,7 +93,7 @@ export default function Calendar({ view, date, courts, selected_court, columns, 
             <Head title="Calendario" />
 
             <div className="flex flex-wrap items-center gap-2">
-                <div role="group" aria-label="Vista del calendario" className="flex rounded-control border border-line bg-white p-0.5">
+                <div role="group" aria-label="Vista del calendario" className="flex rounded-control border border-line bg-paper p-0.5">
                     {(['day', 'week'] as const).map((option) => (
                         <button
                             key={option}
@@ -115,21 +115,21 @@ export default function Calendar({ view, date, courts, selected_court, columns, 
                         onClick={() =>
                             navigate({ date: addDaysIso(date, view === 'day' ? -1 : -7) })
                         }
-                        className="rounded-control border border-line bg-white px-2.5 py-1.5 text-sm text-ink hover:border-ink"
+                        className="rounded-control border border-line bg-paper px-2.5 py-1.5 text-sm text-ink hover:border-ink"
                     >
                         Anterior
                     </button>
                     <button
                         type="button"
                         onClick={() => navigate({ date: todayIso() })}
-                        className="rounded-control border border-line bg-white px-2.5 py-1.5 text-sm text-ink hover:border-ink"
+                        className="rounded-control border border-line bg-paper px-2.5 py-1.5 text-sm text-ink hover:border-ink"
                     >
                         Hoy
                     </button>
                     <button
                         type="button"
                         onClick={() => navigate({ date: addDaysIso(date, view === 'day' ? 1 : 7) })}
-                        className="rounded-control border border-line bg-white px-2.5 py-1.5 text-sm text-ink hover:border-ink"
+                        className="rounded-control border border-line bg-paper px-2.5 py-1.5 text-sm text-ink hover:border-ink"
                     >
                         Siguiente
                     </button>
@@ -141,7 +141,7 @@ export default function Calendar({ view, date, courts, selected_court, columns, 
                         <select
                             value={selected_court ?? ''}
                             onChange={(event) => navigate({ court: Number(event.target.value) })}
-                            className="rounded-control border border-line bg-white px-2 py-1.5 text-sm text-ink"
+                            className="rounded-control border border-line bg-paper px-2 py-1.5 text-sm text-ink"
                         >
                             {courts.map((court) => (
                                 <option key={court.id} value={court.id}>
@@ -158,7 +158,7 @@ export default function Calendar({ view, date, courts, selected_court, columns, 
             </p>
 
             {emptyCourt ? (
-                <div className="mt-6 rounded-card border border-line bg-white p-6">
+                <div className="mt-6 rounded-card border border-line bg-paper p-6">
                     <p className="text-sm text-ink">Todavía no hay canchas cargadas.</p>
                     <p className="mt-1 text-sm text-ink-soft">Cargá una cancha para empezar a recibir reservas.</p>
                     <Link
@@ -169,9 +169,9 @@ export default function Calendar({ view, date, courts, selected_court, columns, 
                     </Link>
                 </div>
             ) : (
-                <div className="mt-4 overflow-x-auto rounded-card border border-line bg-white">
+                <div className="mt-4 overflow-x-auto rounded-card border border-line bg-paper">
                     <div className="flex min-w-max">
-                        <div className="sticky left-0 z-10 w-14 shrink-0 border-r border-line bg-white">
+                        <div className="sticky left-0 z-10 w-14 shrink-0 border-r border-line bg-paper">
                             <div className="h-11 border-b border-line" />
                             <div style={{ height }} className="relative">
                                 {Array.from({ length: Math.ceil(span / 60) }).map((_, index) => {

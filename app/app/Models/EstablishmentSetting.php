@@ -28,7 +28,7 @@ class EstablishmentSetting extends Model
      * Mirrors the column defaults so a freshly created model is usable without a reload.
      */
     protected $attributes = [
-        'accent_color' => '#0f5c46',
+        'accent_color' => '#f0b429',
         'currency' => 'ARS',
         'auto_confirm' => true,
         'pending_blocks_slot' => true,
@@ -42,6 +42,32 @@ class EstablishmentSetting extends Model
     /**
      * The settings row for this installation, created with defaults on first access.
      */
+    /**
+     * Text colour for anything painted on the accent.
+     *
+     * The accent is chosen per installation, so it cannot assume a dark value.
+     * The threshold is where the contrast against paper (#eeeee9) flips: above
+     * it, ink reads better than paper.
+     */
+    public function accentInk(): string
+    {
+        $hex = ltrim((string) $this->accent_color, '#');
+
+        if (strlen($hex) !== 6) {
+            return '#14161a';
+        }
+
+        $linear = array_map(function (string $pair): float {
+            $value = hexdec($pair) / 255;
+
+            return $value <= 0.03928 ? $value / 12.92 : (($value + 0.055) / 1.055) ** 2.4;
+        }, str_split($hex, 2));
+
+        $luminance = 0.2126 * $linear[0] + 0.7152 * $linear[1] + 0.0722 * $linear[2];
+
+        return $luminance > 0.18 ? '#14161a' : '#eeeee9';
+    }
+
     public static function current(): self
     {
         return self::$cached ??= self::query()->first() ?? self::create([

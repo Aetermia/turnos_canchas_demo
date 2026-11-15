@@ -23,9 +23,12 @@ export function Wordmark({ name, logo }: { name: string; logo: string | null }) 
 
 export function PublicLayout({ children }: { children: ReactNode }) {
     const { auth, brand } = usePage<SharedProps>().props;
+    const { url } = usePage();
+    // The booking page is already the booking flow: no self link in the header.
+    const onBookingPage = url.startsWith('/reservar');
 
     return (
-        <div style={{ '--color-accent': brand.accent } as CSSProperties} className="flex min-h-dvh flex-col">
+        <div style={{ '--color-accent': brand.accent, '--color-accent-ink': brand.accent_ink } as CSSProperties} className="flex min-h-dvh flex-col">
             <a
                 href="#contenido"
                 className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-control focus:bg-brand focus:px-3 focus:py-2 focus:text-paper"
@@ -77,9 +80,11 @@ export function PublicLayout({ children }: { children: ReactNode }) {
                             </Link>
                         )}
 
-                        <ButtonLink href="/reservar" variant="accent" size="sm">
-                            Reservar
-                        </ButtonLink>
+                        {onBookingPage ? null : (
+                            <ButtonLink href="/reservar" variant="accent" size="sm">
+                                Reservar
+                            </ButtonLink>
+                        )}
                     </nav>
                 </div>
             </header>

@@ -65,7 +65,7 @@ export default function Form({ court, schedules, pricing }: Props) {
                     submit();
                 }}
             >
-                <section className="grid gap-3 rounded-card border border-line bg-white p-4 sm:grid-cols-2">
+                <section className="grid gap-3 rounded-card border border-line bg-paper p-4 sm:grid-cols-2">
                     <Field label="Nombre" htmlFor="name" error={form.errors.name}>
                         <Input id="name" value={form.data.name} onChange={(event) => form.setData('name', event.target.value)} />
                     </Field>
@@ -130,7 +130,7 @@ export default function Form({ court, schedules, pricing }: Props) {
                     </div>
                 </section>
 
-                <section className="rounded-card border border-line bg-white p-4">
+                <section className="rounded-card border border-line bg-paper p-4">
                     <h2 className="font-display text-base font-semibold text-ink">Horario semanal</h2>
                     <p className="mt-1 text-xs text-ink-soft">
                         Si el día está cerrado, la cancha no genera turnos ese día.
@@ -185,7 +185,7 @@ export default function Form({ court, schedules, pricing }: Props) {
                     </ul>
                 </section>
 
-                <section className="rounded-card border border-line bg-white p-4">
+                <section className="rounded-card border border-line bg-paper p-4">
                     <h2 className="font-display text-base font-semibold text-ink">Tarifas</h2>
                     <p className="mt-1 text-xs text-ink-soft">
                         Cada tarifa vale por un turno dentro de la franja. Si hay una tarifa del día y otra general, gana

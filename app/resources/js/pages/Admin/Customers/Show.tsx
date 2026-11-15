@@ -49,7 +49,7 @@ export default function Show({ customer, stats, bookings }: Props) {
             <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr]">
                 <div className="space-y-4">
                     <form
-                        className="grid gap-3 rounded-card border border-line bg-white p-4"
+                        className="grid gap-3 rounded-card border border-line bg-paper p-4"
                         onSubmit={(event) => {
                             event.preventDefault();
                             form.patch(`/panel/clientes/${customer.id}`, { preserveScroll: true });
@@ -85,7 +85,7 @@ export default function Show({ customer, stats, bookings }: Props) {
                         </p>
                     </form>
 
-                    <dl className="grid grid-cols-2 gap-4 rounded-card border border-line bg-white p-4">
+                    <dl className="grid grid-cols-2 gap-4 rounded-card border border-line bg-paper p-4">
                         <div>
                             <dt className="text-xs text-ink-soft">Reservas</dt>
                             <dd className="tnum font-display text-xl font-semibold text-ink">{stats.total}</dd>
@@ -105,7 +105,7 @@ export default function Show({ customer, stats, bookings }: Props) {
                     </dl>
                 </div>
 
-                <section className="rounded-card border border-line bg-white">
+                <section className="rounded-card border border-line bg-paper">
                     <h2 className="border-b border-line px-4 py-3 font-display text-base font-semibold text-ink">
                         Historial de reservas
                     </h2>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tagline')->nullable();
             $table->text('about')->nullable();
             $table->string('logo_path')->nullable();
-            $table->string('accent_color', 7)->default('#0f5c46');
+            $table->string('accent_color', 7)->default('#f0b429');
 
             $table->string('phone', 30)->nullable();
             $table->string('whatsapp', 30)->nullable();

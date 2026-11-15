@@ -32,7 +32,7 @@ export default function Index({ blocks, courts }: Props) {
             <Head title="Bloqueos" />
 
             <form
-                className="grid gap-3 rounded-card border border-line bg-white p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end"
+                className="grid gap-3 rounded-card border border-line bg-paper p-4 sm:grid-cols-2 lg:grid-cols-5 lg:items-end"
                 onSubmit={(event) => {
                     event.preventDefault();
                     form.post('/panel/bloqueos', {
@@ -89,7 +89,7 @@ export default function Index({ blocks, courts }: Props) {
                 </div>
             </form>
 
-            <div className="mt-4 overflow-x-auto rounded-card border border-line bg-white">
+            <div className="mt-4 overflow-x-auto rounded-card border border-line bg-paper">
                 {blocks.length === 0 ? (
                     <p className="px-4 py-6 text-sm text-ink-soft">
                         No hay bloqueos cargados. Un bloqueo saca esos turnos de la disponibilidad pública.
@@ -121,7 +121,7 @@ export default function Index({ blocks, courts }: Props) {
                                     </td>
                                     <td className="px-3 py-2.5">{block.court ?? 'Todo el establecimiento'}</td>
                                     <td className="px-3 py-2.5">{block.reason}</td>
-                                    <td className="px-3 py-2.5 text-xs">{block.created_by ?? '—'}</td>
+                                    <td className="px-3 py-2.5 text-xs">{block.created_by ?? 'Sin dato'}</td>
                                     <td className="px-3 py-2.5 text-right">
                                         {block.is_past ? (
                                             <span className="text-xs text-ink-soft">Pasado</span>

@@ -47,7 +47,7 @@ export default function Index({ bookings, filters, courts, statuses }: Props) {
             actions={
                 <Link
                     href="/panel/reservas/nueva"
-                    className="rounded-control bg-accent px-3 py-2 text-sm font-medium text-paper hover:bg-[#8f3c19]"
+                    className="rounded-control bg-accent px-3 py-2 text-sm font-medium on-accent hover:brightness-95"
                 >
                     Nueva reserva
                 </Link>
@@ -56,7 +56,7 @@ export default function Index({ bookings, filters, courts, statuses }: Props) {
             <Head title="Reservas" />
 
             <form
-                className="grid gap-2 rounded-card border border-line bg-white p-3 sm:grid-cols-2 lg:grid-cols-4"
+                className="grid gap-2 rounded-card border border-line bg-paper p-3 sm:grid-cols-2 lg:grid-cols-4"
                 onSubmit={(event) => {
                     event.preventDefault();
                     apply({});
@@ -119,7 +119,7 @@ export default function Index({ bookings, filters, courts, statuses }: Props) {
                 <div className="flex gap-2 sm:col-span-2 lg:col-span-4">
                     <button
                         type="submit"
-                        className="rounded-control bg-brand px-3 py-1.5 text-sm font-medium text-paper hover:bg-[#0d3d2e]"
+                        className="rounded-control bg-brand px-3 py-1.5 text-sm font-medium text-paper hover:brightness-110"
                     >
                         Buscar
                     </button>
@@ -136,7 +136,7 @@ export default function Index({ bookings, filters, courts, statuses }: Props) {
                 </div>
             </form>
 
-            <div className="mt-4 overflow-x-auto rounded-card border border-line bg-white">
+            <div className="mt-4 overflow-x-auto rounded-card border border-line bg-paper">
                 {bookings.data.length === 0 ? (
                     <p className="px-4 py-6 text-sm text-ink-soft">
                         No hay reservas con esos filtros.

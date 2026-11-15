@@ -42,7 +42,7 @@ export default function Index({ customers, filters }: Props) {
 
             {creating ? (
                 <form
-                    className="mb-4 grid gap-3 rounded-card border border-line bg-white p-4 sm:grid-cols-2"
+                    className="mb-4 grid gap-3 rounded-card border border-line bg-paper p-4 sm:grid-cols-2"
                     onSubmit={(event) => {
                         event.preventDefault();
                         form.post('/panel/clientes', {
@@ -111,7 +111,7 @@ export default function Index({ customers, filters }: Props) {
                 </Button>
             </form>
 
-            <div className="mt-4 overflow-x-auto rounded-card border border-line bg-white">
+            <div className="mt-4 overflow-x-auto rounded-card border border-line bg-paper">
                 {customers.data.length === 0 ? (
                     <p className="px-4 py-6 text-sm text-ink-soft">No hay clientes con ese criterio.</p>
                 ) : (

@@ -65,7 +65,7 @@ export default function Show({ booking, logs }: Props) {
 
             <div className="grid gap-6 lg:grid-cols-[1.3fr_1fr]">
                 <div className="space-y-4">
-                    <section className="rounded-card border border-line bg-white p-4">
+                    <section className="rounded-card border border-line bg-paper p-4">
                         <div className="flex flex-wrap items-start justify-between gap-3">
                             <div>
                                 <p className="tnum font-display text-xl font-semibold text-ink capitalize">
@@ -169,7 +169,7 @@ export default function Show({ booking, logs }: Props) {
 
                     {mode === 'cancel' ? (
                         <form
-                            className="rounded-card border border-accent/40 bg-white p-4"
+                            className="rounded-card border border-accent/40 bg-paper p-4"
                             onSubmit={(event) => {
                                 event.preventDefault();
                                 cancelForm.patch(`/panel/reservas/${booking.id}/cancelar`, {
@@ -199,7 +199,7 @@ export default function Show({ booking, logs }: Props) {
 
                     {mode === 'reschedule' ? (
                         <form
-                            className="rounded-card border border-line bg-white p-4"
+                            className="rounded-card border border-line bg-paper p-4"
                             onSubmit={(event) => {
                                 event.preventDefault();
                                 rescheduleForm.patch(`/panel/reservas/${booking.id}/reprogramar`, {
@@ -256,7 +256,7 @@ export default function Show({ booking, logs }: Props) {
                     ) : null}
                 </div>
 
-                <section className="rounded-card border border-line bg-white p-4">
+                <section className="rounded-card border border-line bg-paper p-4">
                     <h2 className="font-display text-base font-semibold text-ink">Trazabilidad</h2>
                     <ul className="mt-3 space-y-3 text-sm">
                         {logs.map((log) => (

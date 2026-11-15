@@ -24,7 +24,7 @@ export default function Index({ courts }: Props) {
             actions={
                 <Link
                     href="/panel/canchas/nueva"
-                    className="rounded-control bg-accent px-3 py-2 text-sm font-medium text-paper hover:bg-[#8f3c19]"
+                    className="rounded-control bg-accent px-3 py-2 text-sm font-medium on-accent hover:brightness-95"
                 >
                     Nueva cancha
                 </Link>
@@ -33,7 +33,7 @@ export default function Index({ courts }: Props) {
             <Head title="Canchas" />
 
             {courts.length === 0 ? (
-                <div className="rounded-card border border-line bg-white p-6">
+                <div className="rounded-card border border-line bg-paper p-6">
                     <p className="text-sm text-ink">Todavía no hay canchas.</p>
                     <p className="mt-1 text-sm text-ink-soft">
                         Cargá la primera con su horario y sus tarifas para que el sitio público empiece a mostrar turnos.
@@ -46,7 +46,7 @@ export default function Index({ courts }: Props) {
                     </Link>
                 </div>
             ) : (
-                <div className="overflow-x-auto rounded-card border border-line bg-white">
+                <div className="overflow-x-auto rounded-card border border-line bg-paper">
                     <table className="w-full min-w-[720px] border-collapse text-sm">
                         <thead>
                             <tr className="border-b border-line text-left text-[11px] font-medium tracking-wide text-ink-soft uppercase">

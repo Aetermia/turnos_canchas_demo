@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Complejo Deportivo',
             'tagline' => null,
             'about' => 'Canchas de pádel y fútbol 5. Elegí día y horario, y confirmá online.',
-            'accent_color' => '#a9491f',
+            'accent_color' => '#f0b429',
             'phone' => null,
             'whatsapp' => null,
             'email' => null,

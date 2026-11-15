@@ -54,7 +54,7 @@ export default function Edit({ settings }: { settings: Settings }) {
                     form.patch('/panel/configuracion', { preserveScroll: true });
                 }}
             >
-                <section className="grid gap-3 rounded-card border border-line bg-white p-4 sm:grid-cols-2">
+                <section className="grid gap-3 rounded-card border border-line bg-paper p-4 sm:grid-cols-2">
                     <h2 className="font-display text-base font-semibold text-ink sm:col-span-2">Identidad</h2>
                     <Field label="Nombre comercial" htmlFor="name" error={form.errors.name}>
                         <Input id="name" value={form.data.name} onChange={(event) => form.setData('name', event.target.value)} />
@@ -66,7 +66,7 @@ export default function Edit({ settings }: { settings: Settings }) {
                                 type="color"
                                 value={form.data.accent_color}
                                 onChange={(event) => form.setData('accent_color', event.target.value)}
-                                className="h-9 w-12 rounded-control border border-line bg-white"
+                                className="h-9 w-12 rounded-control border border-line bg-paper"
                             />
                             <Input
                                 aria-label="Código hexadecimal del color de acento"
@@ -88,7 +88,7 @@ export default function Edit({ settings }: { settings: Settings }) {
                     </Field>
                 </section>
 
-                <section className="grid gap-3 rounded-card border border-line bg-white p-4 sm:grid-cols-2">
+                <section className="grid gap-3 rounded-card border border-line bg-paper p-4 sm:grid-cols-2">
                     <h2 className="font-display text-base font-semibold text-ink sm:col-span-2">Contacto y ubicación</h2>
                     <Field label="Teléfono" htmlFor="phone" error={form.errors.phone}>
                         <Input id="phone" value={form.data.phone} onChange={(event) => form.setData('phone', event.target.value)} />
@@ -124,7 +124,7 @@ export default function Edit({ settings }: { settings: Settings }) {
                     </Field>
                 </section>
 
-                <section className="grid gap-3 rounded-card border border-line bg-white p-4 sm:grid-cols-2">
+                <section className="grid gap-3 rounded-card border border-line bg-paper p-4 sm:grid-cols-2">
                     <h2 className="font-display text-base font-semibold text-ink sm:col-span-2">Política de reservas</h2>
 
                     <div className="sm:col-span-2">

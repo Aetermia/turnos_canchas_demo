@@ -22,7 +22,7 @@ export default function Edit({ bookings_count }: { bookings_count: number }) {
             <Head title="Mi cuenta" />
 
             <div className="mx-auto w-full max-w-2xl px-4 py-10">
-                <div className="court-rule w-16" aria-hidden="true" />
+                <div className="board-rule w-16" aria-hidden="true" />
                 <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Mi cuenta</h1>
                 <p className="mt-2 text-sm text-ink-soft">
                     {bookings_count === 0
@@ -34,7 +34,7 @@ export default function Edit({ bookings_count }: { bookings_count: number }) {
                 </p>
 
                 <form
-                    className="mt-8 grid gap-5 rounded-card border border-line bg-white p-5"
+                    className="mt-8 grid gap-5 rounded-card border border-line bg-paper p-5"
                     onSubmit={(event) => {
                         event.preventDefault();
                         form.patch('/mi-cuenta', { preserveScroll: true });

@@ -61,7 +61,7 @@ export default function Mine({ upcoming, history, cancellation_hours }: Props) {
             <Head title="Mis reservas" />
 
             <div className="mx-auto w-full max-w-3xl px-4 py-10">
-                <div className="court-rule w-16" aria-hidden="true" />
+                <div className="board-rule w-16" aria-hidden="true" />
                 <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Mis reservas</h1>
                 <p className="mt-2 text-sm text-ink-soft">
                     Podés cancelar hasta {cancellation_hours} horas antes del turno. El horario se libera al instante.
@@ -71,14 +71,14 @@ export default function Mine({ upcoming, history, cancellation_hours }: Props) {
                     <h2 className="font-display text-lg font-semibold text-ink">Próximos turnos</h2>
 
                     {upcoming.length === 0 ? (
-                        <div className="mt-4 rounded-card border border-line bg-white p-5">
+                        <div className="mt-4 rounded-card border border-line bg-paper p-5">
                             <p className="text-sm text-ink">No tenés turnos reservados.</p>
                             <p className="mt-1 text-sm text-ink-soft">
                                 Cuando reserves, el turno aparece acá con su código.
                             </p>
                             <Link
                                 href="/reservar"
-                                className="mt-3 inline-block rounded-control bg-accent px-4 py-2.5 text-sm font-medium text-paper hover:bg-[#8f3c19]"
+                                className="mt-3 inline-block rounded-control bg-accent px-4 py-2.5 text-sm font-medium on-accent hover:brightness-95"
                             >
                                 Buscar un turno
                             </Link>
@@ -86,7 +86,7 @@ export default function Mine({ upcoming, history, cancellation_hours }: Props) {
                     ) : (
                         <ul className="mt-4 space-y-3">
                             {upcoming.map((booking) => (
-                                <li key={booking.id} className="rounded-card border border-line bg-white p-4">
+                                <li key={booking.id} className="rounded-card border border-line bg-paper p-4">
                                     <div className="flex flex-wrap items-start justify-between gap-3">
                                         <div>
                                             <p className="tnum font-display text-lg font-semibold text-ink capitalize">

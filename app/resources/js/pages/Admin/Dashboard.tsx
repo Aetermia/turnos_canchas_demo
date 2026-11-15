@@ -71,7 +71,7 @@ export default function Dashboard({ stats, occupancy_by_court, today_bookings, n
             </section>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-                <section aria-labelledby="today-title" className="rounded-card border border-line bg-white">
+                <section aria-labelledby="today-title" className="rounded-card border border-line bg-paper">
                     <div className="flex items-baseline justify-between gap-3 border-b border-line px-4 py-3">
                         <h2 id="today-title" className="font-display text-base font-semibold text-ink">
                             Turnos de hoy
@@ -118,7 +118,7 @@ export default function Dashboard({ stats, occupancy_by_court, today_bookings, n
                 </section>
 
                 <div className="space-y-6">
-                    <section aria-labelledby="occupancy-title" className="rounded-card border border-line bg-white p-4">
+                    <section aria-labelledby="occupancy-title" className="rounded-card border border-line bg-paper p-4">
                         <h2 id="occupancy-title" className="font-display text-base font-semibold text-ink">
                             Ocupación por cancha
                         </h2>
@@ -147,7 +147,7 @@ export default function Dashboard({ stats, occupancy_by_court, today_bookings, n
                         )}
                     </section>
 
-                    <section aria-labelledby="next-title" className="rounded-card border border-line bg-white p-4">
+                    <section aria-labelledby="next-title" className="rounded-card border border-line bg-paper p-4">
                         <h2 id="next-title" className="font-display text-base font-semibold text-ink">
                             Próximos turnos
                         </h2>

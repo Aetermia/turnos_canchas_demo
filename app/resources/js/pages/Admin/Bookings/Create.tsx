@@ -59,7 +59,7 @@ export default function Create({ courts, selected_court, date, slots, customers,
             <Head title="Nueva reserva" />
 
             <form
-                className="grid max-w-3xl gap-4 rounded-card border border-line bg-white p-4"
+                className="grid max-w-3xl gap-4 rounded-card border border-line bg-paper p-4"
                 onSubmit={(event) => {
                     event.preventDefault();
                     form.post('/panel/reservas');
