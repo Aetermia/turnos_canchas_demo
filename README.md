@@ -8,15 +8,28 @@ Aplicación web para que un club deportivo venda turnos online y los administre 
 
 ## Puesta en marcha local
 
+El proyecto Laravel vive en `app/`. Todos los comandos se corren **dentro de esa carpeta**; en la raíz del repositorio solo hay documentación.
+
 ```bash
-php composer.phar install
+cd app
+php ../composer.phar install
 npm install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
-npm run build          # o npm run dev en otra terminal
-php artisan serve
 ```
+
+Después, con **dos terminales** abiertas en `app/`:
+
+```bash
+# terminal 1: servidor PHP
+php artisan serve
+
+# terminal 2: Vite con recarga en caliente
+npm run dev
+```
+
+Entrá a `http://localhost:8000`. Si preferís un solo comando, `npm run build` compila los assets y alcanza con `php artisan serve`.
 
 Si no tenés PHP instalado, en Windows: `winget install PHP.PHP.8.4`. El repositorio trae `composer.phar`, así que no hace falta Composer global.
 
