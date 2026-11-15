@@ -37,7 +37,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             </a>
 
             <header className="sticky top-0 z-20 border-b border-line bg-paper">
-                <div className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between gap-4 px-4">
+                <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4">
                     <Link href="/" aria-label="Ir al inicio">
                         <Wordmark name={brand.name} logo={brand.logo} />
                     </Link>
@@ -89,7 +89,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
                 </div>
             </header>
 
-            <div className="mx-auto w-full max-w-5xl px-4 empty:hidden">
+            <div className="mx-auto w-full max-w-6xl px-4 empty:hidden">
                 <div className="pt-4">
                     <Flash />
                 </div>
@@ -100,7 +100,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             </main>
 
             <footer className="border-t border-line bg-paper-sunk">
-                <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-8 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
+                <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-ink-soft sm:flex-row sm:items-center sm:justify-between">
                     <p>
                         © {new Date().getFullYear()} {brand.name}. Turnos online.
                     </p>

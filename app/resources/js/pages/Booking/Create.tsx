@@ -66,7 +66,7 @@ export default function Create({
         <PublicLayout>
             <Head title="Reservar un turno" />
 
-            <div className="mx-auto w-full max-w-5xl px-4 py-10">
+            <div className="mx-auto w-full max-w-6xl px-4 py-10">
                 <div className="board-rule w-16" aria-hidden="true" />
                 <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Elegí cancha, día y horario</h1>
                 <p className="mt-2 max-w-xl text-sm text-ink-soft">
